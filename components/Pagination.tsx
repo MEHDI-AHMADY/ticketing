@@ -18,7 +18,6 @@ interface PaginationProps {
 const Pagination = ({ itemCount, pageSize, currentPage }: PaginationProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  console.log(searchParams)
 
   const pageCount = Math.ceil(itemCount / pageSize);
   if (pageCount <= 1) return null;
