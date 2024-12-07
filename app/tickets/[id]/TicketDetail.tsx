@@ -12,6 +12,8 @@ import TicketPriority from "@/components/TicketPriority";
 import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
+import ReactMarkDown from "react-markdown";
+import DeleteButton from "./DeleteButton";
 
 interface TicketDetailProps {
   ticket: Ticket;
@@ -31,7 +33,9 @@ const TicketDetail = ({ ticket }: TicketDetailProps) => {
             Created :{formatDate(ticket.createdAt)}
           </CardDescription>
         </CardHeader>
-        <CardContent>{ticket.description}</CardContent>
+        <CardContent className="prose dark:prose-invert">
+          <ReactMarkDown>{ticket.description}</ReactMarkDown>
+        </CardContent>
         <CardFooter>Updated : {formatDate(ticket.updatedAt)}</CardFooter>
       </Card>
       <div className="mx-4 flex lg:flex-col lg:mx-0 gap-2">
@@ -43,14 +47,7 @@ const TicketDetail = ({ ticket }: TicketDetailProps) => {
         >
           Edit Ticket
         </Link>
-        <Link
-          href={`/tickets/edit/${ticket.id}`}
-          className={`${buttonVariants({
-            variant: "destructive",
-          })}`}
-        >
-          Delete Ticket
-        </Link>
+        <DeleteButton ticketID={ticket.id}/>
       </div>
     </div>
   );
