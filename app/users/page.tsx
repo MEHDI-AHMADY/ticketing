@@ -1,7 +1,10 @@
+import UserForm from "@/components/UserForm"
 
 const Users = () => {
   return (
-    <div>Users</div>
+    <div>
+      <UserForm />
+    </div>
   )
 }
 
