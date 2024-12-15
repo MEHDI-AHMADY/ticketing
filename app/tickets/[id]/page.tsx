@@ -1,22 +1,22 @@
-import prisma from "@/prisma/db"
-import TicketDetail from "./TicketDetail"
+import prisma from "@/prisma/db";
+import TicketDetail from "./TicketDetail";
 
 interface ViewTicketProps {
-    params : {id : string}
+  params: { id: string };
 }
 
-const ViewTicket = async ({params} : ViewTicketProps) => {
-    const mainTicket = await prisma.ticket.findUnique({
-        where : {id : parseInt(params.id)}
-    })
+const ViewTicket = async ({ params }: ViewTicketProps) => {
+  const mainTicket = await prisma.ticket.findUnique({
+    where: { id: parseInt(params.id) },
+  });
 
-    if(!mainTicket) {
-        return <p className="text-destructive">Ticket not found!</p>
-    }
+  const users = await prisma.user.findMany();
 
-  return (
-    <TicketDetail ticket={mainTicket}/>
-  )
-}
+  if (!mainTicket) {
+    return <p className="text-destructive">Ticket not found!</p>;
+  }
 
-export default ViewTicket
+  return <TicketDetail ticket={mainTicket} users={users} />;
+};
+
+export default ViewTicket;
