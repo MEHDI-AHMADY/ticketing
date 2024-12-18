@@ -17,7 +17,7 @@ import {
 } from "./ui/select";
 import { Button } from "./ui/button";
 import { useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { Ticket } from "@prisma/client";
 
@@ -51,8 +51,8 @@ const TicketForm = ({ ticket }: TicketFormProps) => {
 
       router.push("/tickets");
       router.refresh();
-    } catch (error) {
-      setError("Unknown Error is occurred.");
+    } catch (error: any) {
+      setError(error.response.data.error);
       setIsSubmitting(false);
     }
   }
@@ -148,6 +148,7 @@ const TicketForm = ({ ticket }: TicketFormProps) => {
           </Button>
         </form>
       </Form>
+      <p className="text-destructive">{error}</p>
     </div>
   );
 };
