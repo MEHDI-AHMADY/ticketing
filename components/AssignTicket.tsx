@@ -22,8 +22,8 @@ const AssignTicket = ({ ticket, users }: { ticket: Ticket; users: User[] }) => {
       .patch(`/api/tickets/${ticket.id}`, {
         assignedToUserId: userId === "0" ? null : userId,
       })
-      .catch(() => {
-        setError("Unable to assign Ticket.");
+      .catch((error) => {
+        setError(error.response.data.error || "Unable to assign Ticket.");
       });
     setIsAssigning(false);
   };
